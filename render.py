@@ -93,6 +93,15 @@ def pill(d, x, y, label, kind, size=8):
     return w
 
 
+def tagbar(d, x, y, label, fill, size=8):
+    """Solid tag bar over an illustration (top entries all have one)."""
+    f = F(SANS_B, size)
+    w = d.textlength(label, font=f) + 12
+    d.rectangle([x, y, x + w, y + 13], fill=fill)
+    d.text((x + 6, y + 2), label, font=f, fill=(255, 255, 255))
+    return w
+
+
 def numdot(d, cx, cy, n, r=9):
     d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=RED,
               outline=(255, 255, 255), width=1)
@@ -320,9 +329,6 @@ def illo_selloff(d, x, y, w, h):
     d.line(pts, fill=(200, 30, 35), width=3)
     d.polygon([(pts[-1][0], pts[-1][1]), (pts[-1][0] - 12, pts[-1][1] - 2),
                (pts[-1][0] - 2, pts[-1][1] - 12)], fill=(200, 30, 35))
-    d.text((x + 8, y + 4), "NIKKEI -4.1%", font=F(SANS_B, 8), fill=(200, 30, 35))
-    d.rectangle([x + w - 34, y + 6, x + w - 12, y + 22], fill=(20, 40, 70))
-    d.text((x + w - 32, y + 9), "AI", font=F(SANS_B, 8), fill=(255, 255, 255))
 
 
 def illo_anthropic(d, x, y, w, h):
@@ -334,8 +340,6 @@ def illo_anthropic(d, x, y, w, h):
     d.line(pts, fill=(80, 200, 120), width=3)
     d.polygon([(pts[-1][0], pts[-1][1]), (pts[-1][0] - 12, pts[-1][1] + 2),
                (pts[-1][0] - 2, pts[-1][1] + 12)], fill=(80, 200, 120))
-    d.text((x + 8, y + 4), "ANT  $97.17  +17%", font=F(SANS_B, 8),
-           fill=(120, 220, 150))
     for bx in range(0, 5):
         bh = 8 + bx * 4
         d.rectangle([x + 14 + bx * 30, y + h - 4 - bh, x + 30 + bx * 30,
@@ -388,8 +392,6 @@ def illo_bepi(d, x, y, w, h):
     d.line([(sx + 4, sy + 14), (sx - 2, sy + 26)], fill=(255, 255, 255), width=2)
     d.line([(sx + 18, sy + 14), (sx + 24, sy + 26)], fill=(255, 255, 255),
            width=2)
-    d.text((x + 96, y + h - 14), "8 YEARS · 6BN MILES", font=F(SANS_B, 7),
-           fill=(255, 255, 255))
 
 
 def illo_phillips(d, x, y, w, h):
@@ -468,8 +470,6 @@ def illo_senegal(d, x, y, w, h):
     rx, ry, rr = x + w - 24, y + 16, 10
     d.ellipse([rx - rr, ry - rr, rx + rr, ry + rr], fill=(255, 120, 30))
     d.ellipse([rx - 5, ry - 5, rx + 5, ry + 5], fill=(20, 96, 143))
-    d.text((x + 8, y + 4), "YENNE, SENEGAL", font=F(SANS_B, 7),
-           fill=(255, 255, 255))
 
 
 def illo_pill(d, x, y, w, h):
@@ -495,7 +495,6 @@ def illo_pill(d, x, y, w, h):
           fill=(200, 210, 210), width=4)
     d.arc([x + w - 40, y + h - 24, x + w - 8, y + h - 6], 180, 290,
           fill=(30, 140, 140), width=4)
-    d.text((x + 96, y + h - 14), "60.7%", font=F(SANS_B, 9), fill=(30, 140, 140))
 
 
 def illo_china(d, x, y, w, h):
@@ -543,43 +542,53 @@ SMALLS = [
     dict(n=4, kick="MARKETS · ASIA",
          head="Asia's AI sell-off: Nikkei -4.1%, Kospi -4.7%",
          deck="Taiex -6.75%; SoftBank -15%; MSCI Asia -7% on the week.",
-         pill="REPORTED", illo=illo_selloff),
+         pill="REPORTED", illo=illo_selloff,
+         tag=("ASIA -7% WK", (200, 30, 35), "tr")),
     dict(n=5, kick="WALL STREET",
          head="Anthropic's first close: $97.17, up 17%",
          deck="Opened at $111.50; valued near $1.27tn.",
-         pill="REPORTED", illo=illo_anthropic),
+         pill="REPORTED", illo=illo_anthropic,
+         tag=("UP 17%", (40, 160, 90), "tl")),
     dict(n=6, kick="GAMING",
          head="GTA VI: $2.36bn day one, says estimate",
          deck="24.58m copies; Metacritic 99. Take-Two silent.",
-         pill="CLAIM", illo=illo_gta),
+         pill="CLAIM", illo=illo_gta,
+         tag=("$2.36BN", (30, 16, 50), "bl")),
     dict(n=7, kick="SPACE",
          head="BepiColombo reaches Mercury after 8 years",
          deck="6bn miles flown; orbit capture on Saturday.",
-         pill="REPORTED", illo=illo_bepi),
+         pill="REPORTED", illo=illo_bepi,
+         tag=("6BN MILES", (20, 20, 40), "tl")),
     dict(n=8, kick="CRICKET · WELLINGTON",
          head="Phillips 118 makes history vs India",
          deck="Centuries in all 3 formats in one year.",
-         pill="REPORTED", illo=illo_phillips),
+         pill="REPORTED", illo=illo_phillips,
+         tag=("3 FORMATS", (46, 125, 50), "br")),
     dict(n=9, kick="EUROPE · ITALY",
          head="Italy stops for 24 hours in CGIL strike",
          deck="~100 rallies against Meloni's 2027 budget.",
-         pill="REPORTED", illo=illo_italy),
+         pill="REPORTED", illo=illo_italy,
+         tag=("24H STRIKE", (200, 30, 35), "tl")),
     dict(n=10, kick="AFRICA",
          head="Boat sinks off Senegal; 4 dead, dozens missing",
          deck="50-100 aboard the pirogue near Yenne.",
-         pill="REPORTED", illo=illo_senegal),
+         pill="REPORTED", illo=illo_senegal,
+         tag=("YENNE COAST", (20, 60, 110), "tl")),
     dict(n=11, kick="HEALTH",
          head="Pancreatic pill: tumours shrink in 60.7%",
          deck="Small trial, no control group; presented in Barcelona.",
-         pill="REPORTED", illo=illo_pill),
+         pill="REPORTED", illo=illo_pill,
+         tag=("60.7%", (30, 140, 140), "tr")),
     dict(n=12, kick="ECONOMY · CHINA",
          head="China holds rates for an 18th month",
          deck="1-year 3.00%, 5-year 3.50%, unchanged.",
-         pill="REPORTED", illo=illo_china),
+         pill="REPORTED", illo=illo_china,
+         tag=("18TH MONTH", (150, 10, 20), "br")),
     dict(n=13, kick="AMERICAS",
          head="Bukele files for a third term",
          deck="El Salvador votes 28 Feb 2027.",
-         pill="REPORTED", illo=illo_bukele),
+         pill="REPORTED", illo=illo_bukele,
+         tag=("3RD TERM", (0, 80, 160), "tl")),
 ]
 
 
@@ -593,6 +602,13 @@ def small_cards(d):
         d.rounded_rectangle([x, y, x + bw, y + bh], radius=4, fill=CARD,
                             outline=CARD_LINE, width=1)
         s["illo"](d, x + 1, y + 1, bw - 2, 58)
+        # tag bar over the illustration (every top-5 entry has one)
+        lab, fill, pos = s["tag"]
+        tw = d.textlength(lab, font=F(SANS_B, 8)) + 12
+        ix, iy, iw, ih = x + 1, y + 1, bw - 2, 58
+        px = ix + 6 if pos[1] == "l" else ix + iw - 6 - tw
+        py = iy + 6 if pos[0] == "t" else iy + ih - 6 - 13
+        tagbar(d, px, py, lab, fill)
         tx = x + 8
         numdot(d, tx + 7, y + 68, s["n"], r=7)
         d.text((tx + 18, y + 62), s["kick"], font=F(SANS_B, 7), fill=RED)
@@ -697,6 +713,11 @@ def world_map(d):
         d.polygon(pts, fill=(232, 216, 172), outline=(198, 178, 128))
     for n, lon, lat in PINS:
         numdot(d, px(lon), py(lat), n, r=9)
+    # legend box over empty ocean, bottom-left (as in the top entries)
+    lx, ly = mx + 8, my + mh - 24
+    d.rectangle([lx, ly, lx + 172, ly + 16], fill=DARK)
+    d.text((lx + 8, ly + 4), "1-3 LEAD  ·  4-13 FEATURE STORIES",
+           font=F(SANS_B, 7), fill=(255, 255, 255))
 
 
 # ------------------------------------------------------- also on, timeline
