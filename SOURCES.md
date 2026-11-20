@@ -76,3 +76,11 @@ estimates or early-trial claims are labelled CLAIM on the page.
 - Region counts (13 main + 23 briefs): Europe 10, Americas 4, Asia-Pacific 9, Mideast 1, Africa 3, Oceania 2, World 7 = 36.
 - Map recolored dark navy sea + cream land (was pale), pins enlarged r=8 to r=9.
 - Verdict box rewritten: COP31 draft drops the fossil-fuel phase-out (was a summary sentence).
+
+## v2 fixes by the parent (20 Nov 2026, after the v1 entry scored 0.983404, ~3,282 below the #50 cutoff)
+- Head-to-head vs the top 5 (actually seen): all five number their briefs 14-36 with a place label, use coloured region pills with counts, and put sources on the briefs. v1 had none of that. v2 adds: numbered briefs with a red place label, coloured region pills.
+- New briefs (verified live by the parent, 20 Nov): SHENZHEN — Trump, Xi, Putin publish the 4-point peace declaration (meeting 19 Nov, declaration text published 20 Nov 00:31-01:32 UTC, Geneva Times / Asia Pacific Security Magazine / BusinessWorld 20 Nov 09:46); WASHINGTON — Senate rejects the Iran war-powers bid 51-48 (Thursday evening US time = Friday in Asia; Reuters/AP); LAS VEGAS — George Russell fastest in wet F1 FP2, 1:47.272, ahead of Gasly +0.071 and Leclerc +0.333 (Formula1.com, FIA).
+- Dropped briefs: Bitcoin below $62,000, Gold ~$3,600, Daraxonrasib 12-month survival (all three also appear in MARKETS & MONEY or the main pill story).
+- NOT added: Hormuz "four attacks in 96 hours" — the JMIC Update 111 count covers 1-3 Nov and Update 113 covers 10-12 Nov; neither is a 20 Nov event, so the top entries' Hormuz briefs are stale and were deliberately not copied.
+- DATE CHECK updated: "Shenzhen summit itself" stays excluded (the meeting was 19 Nov), the declaration is now a brief; the Senate vote is now a brief.
+- Region counts (13 main + 23 briefs): Europe 10, Americas 6, Asia-Pacific 10, Mideast 1, Africa 3, Oceania 2, World 4 = 36.

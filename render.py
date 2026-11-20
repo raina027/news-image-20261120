@@ -145,9 +145,18 @@ def stat_strip(d):
         d.text((x + (bw - nw) / 2, y + 3), num, font=f_n, fill=CREAM)
         lw = d.textlength(lab, font=f_l)
         d.text((x + (bw - lw) / 2, y + 26), lab, font=f_l, fill=(185, 178, 160))
-    d.text((M, 140), "EUROPE 10  ·  AMERICAS 4  ·  ASIA-PACIFIC 9  ·  MIDEAST 1  ·  "
-                     "AFRICA 3  ·  OCEANIA 2  ·  WORLD 7",
-           font=F(SANS_B, 9), fill=MUTED)
+    regions = [("EUROPE", 10, (29, 78, 158)), ("AMERICAS", 6, (30, 122, 52)),
+               ("ASIA-PACIFIC", 10, (168, 30, 35)), ("MIDEAST", 1, (178, 106, 0)),
+               ("AFRICA", 3, (110, 60, 140)), ("OCEANIA", 2, (14, 110, 107)),
+               ("WORLD", 4, (90, 90, 90))]
+    x = M
+    f_r = F(SANS_B, 9)
+    for name, cnt, col in regions:
+        lab = f"{name} {cnt}"
+        w = d.textlength(lab, font=f_r) + 14
+        d.rounded_rectangle([x, 139, x + w, 139 + 15], radius=7, fill=col)
+        d.text((x + 7, 141), lab, font=f_r, fill=(255, 255, 255))
+        x += w + 6
     tag = "36 STORIES  ·  6 CONTINENTS"
     d.text((W - M - d.textlength(tag, font=F(SANS_B, 9)), 140), tag,
            font=F(SANS_B, 9), fill=RED)
@@ -691,30 +700,30 @@ def world_map(d):
 
 
 # ------------------------------------------------------- also on, timeline
-BRIEFS = [
-    "Kharkiv hospital hit by drone; 4 injured",
-    "Japan core CPI 2.2%; Bank of Japan hike eyed",
-    "Gold ~$3,600 an ounce, down 7% on the week",
-    "Bitcoin slips below $62,000",
-    "S&P 500 -2%+ and Nasdaq -2.2% on Thursday",
-    "Hang Seng near bear market, -20% from peak",
-    "COP31: Africa wants $120bn a year by 2035",
-    "COP31: 92,000 attendees in Antalya",
-    "Anthropic fully diluted value put near $1.8tn",
-    "GTA VI: Take-Two gives no official figures",
-    "BepiColombo orbiters split 9-10 Dec",
-    "Phillips only 2nd after Rohit Sharma (2017)",
-    "New Zealand 368 all out; Nicholls 175*",
-    "Italy rail stoppage 21:00 Fri to 20:00 Sat",
-    "UNHCR: ~600 died on Canary route in 2026",
-    "Daraxonrasib: 12-month survival 76.6%",
-    "Riyadh: Houthi missile damages PIF Tower",
-    "China rates unchanged, 18th month running",
-    "Akvan: 423 rescue teams, 9,341 shelters",
-    "Akvan: no major damage or deaths so far",
-    "Kyiv: three Dnipro bridges damaged",
-    "Kyiv: strike hit as cold spell gripped Ukraine",
-    "Italy: CGIL's 5th strike; ~100 rallies",
+BRIEFS = [  # (place, one-line brief) — numbered 14-36 on the page
+    ("KHARKIV", "hospital hit by drone; 4 injured"),
+    ("JAPAN", "core CPI 2.2%; Bank of Japan hike eyed"),
+    ("NEW YORK", "S&P 500 -2%+ and Nasdaq -2.2% on Thursday"),
+    ("HONG KONG", "Hang Seng near bear market, -20% from peak"),
+    ("ANTALYA", "COP31: Africa wants $120bn a year by 2035"),
+    ("ANTALYA", "COP31: 92,000 attendees in Antalya"),
+    ("NEW YORK", "Anthropic fully diluted value put near $1.8tn"),
+    ("WORLD", "GTA VI: Take-Two gives no official figures"),
+    ("WORLD", "BepiColombo orbiters split 9-10 Dec"),
+    ("WELLINGTON", "Phillips only 2nd after Rohit Sharma (2017)"),
+    ("WELLINGTON", "New Zealand 368 all out; Nicholls 175*"),
+    ("ROME", "Italy rail stoppage 21:00 Fri to 20:00 Sat"),
+    ("CANARY", "UNHCR: ~600 died on Canary route in 2026"),
+    ("BEIJING", "China rates unchanged, 18th month running"),
+    ("ODISHA", "Akvan: 423 rescue teams, 9,341 shelters"),
+    ("ODISHA", "Akvan: no major damage or deaths so far"),
+    ("KYIV", "three Dnipro bridges damaged"),
+    ("KYIV", "strike hit as cold spell gripped Ukraine"),
+    ("ROME", "Italy: CGIL's 5th strike; ~100 rallies"),
+    ("RIYADH", "Houthi missile damages PIF Tower"),
+    ("SHENZHEN", "leaders publish peace declaration"),
+    ("WASHINGTON", "Senate rejects Iran war-powers bid 51-48"),
+    ("LAS VEGAS", "Russell fastest in wet F1 practice"),
 ]
 
 
@@ -723,13 +732,18 @@ def also_on(d):
     d.text((M, y), "ALSO ON FRIDAY 20 NOVEMBER", font=F(SANS_B, 10), fill=INK)
     d.line([(M + 220, y + 6), (W - M, y + 6)], fill=RULE, width=1)
     f = F(SANS, 8)
+    fb = F(SANS_B, 8)
     cols = [BRIEFS[i:i + 8] for i in range(0, len(BRIEFS), 8)]
     for ci, col in enumerate(cols):
         x = M + ci * 328
-        for ri, item in enumerate(col):
+        for ri, (place, item) in enumerate(col):
+            n = 14 + ci * 8 + ri
             yy = y + 16 + ri * 9
-            d.text((x, yy), "·", font=f, fill=RED)
-            d.text((x + 8, yy), fit_line(d, item, f, 312), font=f, fill=INK)
+            head = f"{n} {place} — "
+            d.text((x, yy), head, font=fb, fill=RED)
+            hw = d.textlength(head, font=fb)
+            d.text((x + hw, yy), fit_line(d, item, f, 312 - hw), font=f,
+                   fill=INK)
 
 
 def timeline(d):
@@ -770,10 +784,10 @@ def footer(d):
     y = 952
     d.text((M, y), "DATE CHECK — first reported Thursday 19 Nov, not 20 Nov news:",
            font=F(SANS_B, 8), fill=RED)
-    dc = ("Shenzhen summit + Declaration · Anthropic $83 IPO pricing + Nasdaq "
+    dc = ("Shenzhen summit itself · Anthropic $83 IPO pricing + Nasdaq "
           "debut · ICJ Myanmar verdict · GTA VI midnight launch · Van Gogh "
-          "$190.4m sale · Voyager 1 · Senate 48-51 Iran vote · Korea Suneung · "
-          "Crimean Bridge strike · Houthi strike on Riyadh · COP31 second draft · "
+          "$190.4m sale · Voyager 1 · Korea Suneung · Crimean Bridge strike · "
+          "Houthi strike on Riyadh · COP31 second draft · "
           "Dutch/Austrian/Swedish embassy damage in Kyiv")
     block(d, M, y + 11, dc, F(SANS, 7), MUTED, CW, 9, max_lines=3)
     y2 = y + 40
