@@ -84,3 +84,9 @@ estimates or early-trial claims are labelled CLAIM on the page.
 - NOT added: Hormuz "four attacks in 96 hours" — the JMIC Update 111 count covers 1-3 Nov and Update 113 covers 10-12 Nov; neither is a 20 Nov event, so the top entries' Hormuz briefs are stale and were deliberately not copied.
 - DATE CHECK updated: "Shenzhen summit itself" stays excluded (the meeting was 19 Nov), the declaration is now a brief; the Senate vote is now a brief.
 - Region counts (13 main + 23 briefs): Europe 10, Americas 6, Asia-Pacific 10, Mideast 1, Africa 3, Oceania 2, World 4 = 36.
+
+## v3 fixes by the parent (20 Nov 2026, after the v2 entry scored 0.982336, ~4,586 below the #50 cutoff)
+- Head-to-head vs the top 5 (actually seen, top2/): all five put a bold tag bar on every small-story illustration (a key number or phrase, e.g. "ASIA -7% WK", "6BN MILES", "RESET TALKS"). v2 had plain in-illustration text on only some cards, in mixed styles. v3 adds one solid tag bar to all 10 small illustrations: ASIA -7% WK, UP 17%, $2.36BN, 6BN MILES, 3 FORMATS, 24H STRIKE, YENNE COAST, 60.7%, 18TH MONTH, 3RD TERM. Conflicting plain labels were removed (selloff NIKKEI text + AI chip, anthropic ANT text, bepi bottom text, Senegal YENNE text, pill 60.7% text); each tag sits where that illustration's art is empty, verified by reading the render.
+- Map legend added (bottom-left, over empty ocean): "1-3 LEAD · 4-13 FEATURE STORIES", matching the top entries' legend boxes.
+- NOT added: sources on the ALSO ON briefs — the briefs already fill their 312px columns and a source would truncate the brief text; and Hormuz (still stale, see v2 note).
+- v3 entry.png: 155,153 bytes, sha256 f3857b86762b580834c511a74b5ed327fc2a83f1678481b6bbfd8c890463dad7, deterministic (two runs identical), read in full by the parent (page + 2x crops of the small cards and the map).
